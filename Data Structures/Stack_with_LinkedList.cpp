@@ -1,128 +1,100 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-
-class Node{
-    public:
-    int data;
+class Node
+{
+public:
+    int val;
     Node *next;
-
-    public:
-
-    Node(int data){
-        this->data=data;
-        next=NULL;
+    Node(int val)
+    {
+        this->val = val;
+        next = NULL;
     }
 };
-class Linkedlist{
-    Node *head;
-    int legnth;
+class Stack
+{
+    Node *top;
+    int length;
 
-    public:
-
-    Linkedlist(){
-        head=NULL;
-        legnth=0;
+public:
+    Stack()
+    {
+        top = NULL;
+        length = 0;
     }
-
-    ~Linkedlist() {
-        Node *current = head;
-        while (current != NULL) { 
-            delete current; 
-            current = current->next;
+    ~Stack()
+    {
+        while(!isEmpty())
+        {
+            pop();
         }
-        head = NULL; 
-        cout << "Linked list deleted." << endl;
-    }    
-
-    bool is_empty(){
-        Node *temp=head;
-
-        if(temp==NULL){
+    }
+    bool isEmpty()
+    {
+        if (top == NULL)
+        {
             return true;
+            cout << "Stack is empty" << endl;
         }
-        else{
+        else
+        {
             return false;
         }
-        
     }
 
-    void push(int val){
-        Node *newnode=new Node (val);
-        
-        if(head==NULL){
-            head=newnode;
+    void push(int val)
+    {
+        Node *temp = new Node(val);
+        temp->next = top;
+        top = temp;
+        length++;
+        cout << "Element :" << val << " is pushed." << endl;
+    }
+    void pop()
+    {
+        Node *temp = top;
+        int val = top->val;
+        top = top->next;
+        delete temp;
+        temp = NULL;
+        length--;
+        cout << "Element : " << val << " is popped" << endl;
+    }
+    void peek()
+    {
+        if (!isEmpty())
+        {
+            cout << "Top of the stack: " << top->val << endl;
         }
-        else{
-            Node *temp=head;
-            while(temp->next!=NULL){
-                temp=temp->next;
+    }
+
+    void display()
+    {
+        if (!isEmpty())
+        {
+            cout << "Stack Elements :" ;
+            Node *temp = top;
+            while (temp != NULL)
+            {
+                cout << temp->val ;
+                temp = temp->next;
             }
-            temp->next=newnode;
-        }
-        
-    }
-
-    void pop(){
-        if(is_empty()){
-            cout<<"stack is empty already";
-            return;
-        }
-        else{
-            if(head->next==NULL){
-                delete head;
-                head=NULL;
-            }else{
-                Node *temp=head;
-                while(temp->next->next!=NULL){
-                    temp=temp->next;
-                }
-                delete temp->next;
-                temp->next=NULL;                
-            }
-
+            cout << endl;
         }
     }
-    int peak(){
-        Node *temp=head;
-        while(temp->next!=NULL){
-            temp=temp->next;
-        }
-        return temp->data;
-    }
-
-    void display(){
-        Node *temp=head;
-        while(temp!=NULL){
-            cout<<temp->data<<" ";
-            temp=temp->next;
-        }
-        cout<<endl;
-    }
-
-
-
-
 };
-
-
-int main(){
-    Linkedlist l1;
-
-    l1.push(1);
-    l1.push(2);
-    l1.push(3);
-    l1.push(4);
-    l1.push(5);
-
-    cout<<"After using push function : ";
-    l1.display();
-
-    l1.pop();
-    cout<<"After using pop function : ";
-    l1.display();
-
-    cout<<"Element at top of stack is : "<<l1.peak();
-
-
-    return 0;
+int main()
+{
+    Stack s;
+    s.push(2);
+    s.display();
+    s.push(3);
+    s.display();
+    s.push(4);
+    s.display();
+    s.pop();
+    s.display();
+    s.push(8);
+    s.display();
+    s.peek();
 }

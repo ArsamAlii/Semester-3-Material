@@ -33,8 +33,8 @@ public:
     {
         if (top == NULL)
         {
-            return true;
             cout << "Stack is empty" << endl;
+            return true;
         }
         else
         {

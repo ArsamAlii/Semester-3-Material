@@ -2,20 +2,20 @@
 #include<stdlib.h>
 using namespace std;
 
-class Array{
+class Stack{
 	private:
 		int *arr;
 		int capacity;
 		int top;
 		
 	public:
-		Array(int size){
+		Stack(int size){
 			arr=new int [size];
 			capacity=size;
 			top=-1;//this will point at the index number 
 		}
 
-        ~Array(){
+        ~Stack(){
             delete[] arr; // free allocated memory
         }
 		
@@ -80,7 +80,7 @@ class Array{
 
 int main(){
 	
-	Array a1(5);
+	Stack a1(5);
 	
 	a1.push(1);
 	a1.push(2);

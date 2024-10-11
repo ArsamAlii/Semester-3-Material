@@ -110,6 +110,7 @@ void operate_exp(string exp)
             case '/':
                 if (temp1==0){
                     cout << "Cannot divide by zero" << endl;
+                    return;
                 }else{
                     exp_stack.push(temp2/temp1);
                 }

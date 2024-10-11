@@ -47,6 +47,10 @@ public:
     }
     int pop()
     {
+        if(isEmpty()){
+            cout<<"stack underflow"<<endl;
+            return -1;
+        }        
         Node *temp = top;
         int val = top->val;
         top = top->next;

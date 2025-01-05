@@ -15,13 +15,13 @@ class Node{
 };
 class Linkedlist{
     Node *head;
-    int legnth;
+    int length;
 
     public:
 
     Linkedlist(){
         head=NULL;
-        legnth=0;
+        length=0;
     }
 
     ~Linkedlist() {
@@ -45,11 +45,11 @@ class Linkedlist{
             }
             curr->next=newnode;
         }
-        legnth++;
+        length++;
     }
 
     void insert(int val, int pos){
-        if(pos<1||pos>legnth+1){
+        if(pos<1||pos>length+1){
             cout<<"invalid position";
             return;
         }
@@ -68,12 +68,12 @@ class Linkedlist{
                 curr->next=newnode;
                 
             }
-            legnth++;
+            length++;
         }
     }
 
     void update(int pos, int newValue){
-        if (pos<1||pos>legnth){
+        if (pos<1||pos>length){
             cout<<"Invalid position"<<endl;
             return;
         }
@@ -86,11 +86,13 @@ class Linkedlist{
     }    
 
     void remove(int pos){
-        if(legnth==0){
-            cout<<"invalid posution";
-        }
-        if(pos<1||pos>legnth){
+        if(length==0){
             cout<<"invalid position";
+            return;
+        }
+        if(pos<1||pos>length){
+            cout<<"invalid position";
+            return;
         }
         Node* curr=head;
         if(pos==1){
@@ -98,7 +100,7 @@ class Linkedlist{
             delete curr;
         }
         else{
-            Node *slow=head;
+            Node *slow=NULL;
             for(int i =1;i<pos;i++){
                 slow=curr;
                 curr=curr->next;
@@ -106,11 +108,11 @@ class Linkedlist{
             slow->next=curr->next;
             delete curr;
         }
-        legnth--;
+        length--;
     }
 
     bool find(int val){
-        if(legnth==0){
+        if(length==0){
             cout<<"array is empty";
             return false;
         }

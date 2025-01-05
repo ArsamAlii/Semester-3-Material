@@ -1,5 +1,4 @@
 #include<iostream>
-#include<stdlib.h>
 using namespace std;
 
 class Stack{
@@ -12,14 +11,14 @@ class Stack{
 		Stack(int size){
 			arr=new int [size];
 			capacity=size;
-			top=-1;//this will point at the index number 
+			top=-1;
 		}
 
         ~Stack(){
-            delete[] arr; // free allocated memory
+            delete[] arr;
         }
 		
-		bool is_empty(){//check if array is empty
+		bool is_empty(){
 			if(top==-1){
 				return true;
 			}
@@ -28,7 +27,7 @@ class Stack{
 			}
 		}
 		
-		bool is_full(){//check if array is full
+		bool is_full(){
 			if(top==capacity-1){
 				return true;
 			}
@@ -37,7 +36,7 @@ class Stack{
 			}
 		}
 		
-		void push(int val){// insert/add a value in stack
+		void push(int val){
 			if(is_full()){
 				cout<<"stack is full cannot add more elements"<<endl;
 				return;
@@ -48,7 +47,7 @@ class Stack{
 			}
 		}
 		
-		int pop(){//return top val and returns it
+		int pop(){
 			if(is_empty()){
 				cout<<"stack is empty nothing to remove"<<endl;
 				return 0;
@@ -60,7 +59,7 @@ class Stack{
 			}
 		}
 		
-		int peak(){//returns the value at top
+		int peak(){
 			if(is_empty()){
 				cout<<"array is empty nothing to return "<<endl;
 				return 0;

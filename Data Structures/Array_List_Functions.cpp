@@ -2,15 +2,16 @@
 using namespace std;
 
 class Arraylist{
+    public:
     int *arr;
     int *curr;
-    int legnth;
+    int length;
     int capacity;
     public:
     Arraylist(int size){
         arr=new int [size];
         curr=NULL;
-        legnth=0;
+        length=0;
         capacity=size;
     }
     ~Arraylist(){
@@ -20,7 +21,7 @@ class Arraylist{
         curr=arr;
     }
     void tail(){
-        curr=arr+legnth-1;
+        curr=arr+length-1;
     }
     void next(){
         curr++;
@@ -29,53 +30,53 @@ class Arraylist{
         curr--;
     }
     void add(int val){
-        if(legnth<capacity){
-            *(arr+legnth)=val;
-            legnth++;
+        if(length<capacity){
+            *(arr+length)=val;
+            length++;
         }
         else{
             cout<<"array is full ";
         }
     }
     void insert(int val,int pos){
-        if(legnth==capacity){
+        if(length==capacity){
             cout<<"array is full";
             return;
         }
-        if(pos<1||pos>legnth+1){
+        if(pos<1||pos>length+1){
             cout<<"invalid postion";
             return;
         }
         tail();
-        for(int i=legnth;i>=pos;i--){
+        for(int i=length;i>=pos;i--){
             *(curr+1)=*curr;
             prev();
         }
         *(curr+1)=val;
-        legnth++;
+        length++;
     }
     void remove(int pos){
-        if(legnth==0){
+        if(length==0){
             cout<<"array is empty";
             return;
         }
-        if(pos<1||pos>legnth){
+        if(pos<1||pos>length){
             cout<<"invalid legnth";
             return;
         }
         curr=arr+pos-1;
-        for(int i=pos;i<legnth;i++){
+        for(int i=pos;i<length;i++){
             *curr=*(curr+1);
             next();
         }
-        legnth--;
+        length--;
     }
     int get(int pos){
-        if(legnth==0){
+        if(length==0){
             cout<<"array is empty";
              return 0;
         }
-        if(pos<1||pos>legnth){
+        if(pos<1||pos>length){
             cout<<"invalid position entered";
             return 0;
         }
@@ -84,11 +85,11 @@ class Arraylist{
         return *curr;
     }
     void update(int val,int pos){
-         if(legnth==0){
+         if(length==0){
             cout<<"array is empty";
             return;
         }
-        if(pos<1||pos>legnth){
+        if(pos<1||pos>length){
             cout<<"invalid position entered";
             return;
         }    
@@ -97,13 +98,13 @@ class Arraylist{
 
     }
     int find(int val){
-        if(legnth==0){
+        if(length==0){
             cout<<"array is empty";
             return 0;
         }
 
         start();
-        for(int i=1;i<=legnth;i++){
+        for(int i=1;i<=length;i++){
             if(*curr=val){
                 return i;
             }
@@ -111,11 +112,12 @@ class Arraylist{
         }
         return false;
     }
+
 //--------user to provide val which is to be removed
-    int v_remove(int val){
-        if(legnth==0){
+    void v_remove(int val){
+        if(length==0){
             cout<<"array is empty";
-            return 0;
+            return ;
         }
 
         int pos=find(val);
@@ -125,7 +127,7 @@ class Arraylist{
     }
 
 	void display(){
-		for(int *ptr=arr;ptr<arr+legnth;ptr++){
+		for(int *ptr=arr;ptr<arr+length;ptr++){
 			cout<<*ptr<<" ";
 		}
 		cout<<endl;
@@ -159,7 +161,11 @@ class Arraylist{
         
     }
 
+
+
 };
+
+
 int main(){
 
     Arraylist l1(10);

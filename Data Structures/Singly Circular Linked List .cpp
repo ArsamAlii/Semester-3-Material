@@ -1,171 +1,135 @@
 #include <iostream>
-
 using namespace std;
 
-class Node
-{
+class Node{
 public:
-    int info;
+    int data;
     Node *next;
 
-    Node(int val)
-    {
-        info = val;
-        next = NULL;
+    Node(int data) {
+        this->data=data;
+        next=NULL;
     }
 };
 
-class LinkedList
-{
+class LinkedList{
 public:
     Node *head;
     int length;
 
-    LinkedList()
-    {
-        head = NULL;
-        length = 0;
+    LinkedList(){
+        head=NULL;
+        length=0;
     }
 
-    void insert(int val, int pos)
-    {
-        if (pos < 1 || pos > length + 1)
-        {
-            cout << "Invalid Position" << endl;
+    void insert(int val,int pos){
+        if (pos<1||pos>length+1){
+            cout<<"Invalid Position"<<endl;
             return;
         }
 
-        Node *n = new Node(val);
+        Node *n=new Node(val);
 
-        if (pos == 1)
-        {
-            if (head != NULL)
-            {
-                Node *tail = head;
-
-                while (tail->next != head)
-                {
-                    tail = tail->next;
+        if (pos==1){
+            if (head!=NULL){
+                Node *tail=head;
+                while(tail->next!=head){
+                    tail=tail->next;
                 }
-
-                n->next = head;
-                head = n;
-                tail->next = head;
+                n->next=head;
+                head=n;
+                tail->next=head;
+            } else {
+                head=n;
+                n->next=n;
             }
-            else
-            {
-                head = n;
-                n->next = n;
+        }else{
+            Node *curr=head;
+            for (int i=1;i<pos-1;i++){
+                curr=curr->next;
             }
+            n->next=curr->next;
+            curr->next=n;
         }
-        else
-        {
-            Node *curr = head;
-
-            for (int i = 1; i < pos - 1; i++)
-            {
-                curr = curr->next;
-            }
-
-            n->next = curr->next;
-            curr->next = n;
-        }
-
         length++;
     }
 
-    void remove(int pos)
-    {
-        if (pos < 1 || pos > length)
-        {
-            cout << "Invalid Position" << endl;
+    void remove(int pos){
+        if(pos<1||pos>length){
+            cout<<"Invalid Position"<<endl;
             return;
         }
 
-        if (head == NULL)
-        {
-            cout << "List is empty" << endl;
+        if(head==NULL){
+            cout<<"List is empty"<<endl;
             return;
         }
 
-        if (pos == 1)
-        {
-            Node *tail = head;
+        if(pos==1){
+            Node *tail=head;
 
-            if (head->next != head)
-            {
-                while (tail->next != head)
-                {
-                    tail = tail->next;
-                }
-
-                Node *toDelete = head;
-                head = head->next;
-                tail->next = head;
-                delete toDelete;
-            }
-            else
-            {
-                delete head;
-                head = NULL;
-            }
-        }
-        else
-        {
-            Node *curr = head;
-            Node *prev = NULL;
-
-            for (int i = 1; i < pos; i++)
-            {
-                prev = curr;
-                curr = curr->next;
+            while(tail->next!=head){
+                tail=tail->next;
             }
 
-            prev->next = curr->next;
+            Node *toDelete=head;
+
+            if(head->next!=head){
+                head=head->next;
+                tail->next=head;
+            }else{
+                head=NULL;
+            }
+
+            delete toDelete;
+        }else{
+            Node *curr=head;
+            Node *prev=NULL;
+
+            for(int i=1;i<pos;i++){
+                prev=curr;
+                curr=curr->next;
+            }
+
+            prev->next=curr->next;
             delete curr;
         }
-
         length--;
+    }
+
+
+    void display() {
+        if (head==NULL){
+            cout<<"List is empty"<<endl;
+            return;
+        }
+        Node *temp=head;
+        do{
+            cout<<temp->data<<" ";
+            temp=temp->next;
+        } while (temp!=head);
+        cout<<endl;
     }
 };
 
-int main()
-{
+int main() {
     LinkedList ll;
 
     cout << "Inserting elements:" << endl;
-    ll.insert(10, 1);
-    ll.insert(20, 2);
-    ll.insert(30, 3);
-    ll.insert(15, 2);
+    ll.insert(10,1);
+    ll.insert(20,2); 
+    ll.insert(30,3);
+    ll.insert(15,2);
 
-    ll.insert(40, 0);
-    ll.insert(50, 6);
-
-    Node *current = ll.head;
     cout << "List after inserts: ";
-    for (int i = 0; i < ll.length; i++)
-    {
-        cout << current->info << " ";
-        current = current->next;
-    }
-    cout << endl;
+    ll.display();
 
     cout << "Removing elements:" << endl;
     ll.remove(1);
     ll.remove(2);
 
-    ll.remove(0);
-    ll.remove(4);
-
-    current = ll.head;
     cout << "List after removes: ";
-    for (int i = 0; i < ll.length; i++)
-    {
-        cout << current->info << " ";
-        current = current->next;
-    }
-    cout << endl;
+    ll.display();
 
     return 0;
 }

@@ -30,10 +30,7 @@ class D_linkedlist{
             head->next=head;
             head->prev=head;
         }else{
-            Node *temp=head;
-            while(temp->next!=head){
-                temp=temp->next;
-            }
+            Node *temp=head->prev;
             temp->next=newnode;
             newnode->prev=temp;
             newnode->next=head;
@@ -54,10 +51,7 @@ class D_linkedlist{
         else{
             Node *curr=head;
             if(pos==1){
-                Node *temp=head;
-                while(temp->next!=head){
-                    temp=temp->next;
-                }
+                Node *temp=head->prev;
                 if(head->next==head){
                     delete head;
                     head=NULL;
@@ -68,27 +62,28 @@ class D_linkedlist{
                     delete curr;
                 }
             }else{
-                Node *slow=head;
-                for(int i = 0 ; i<pos-1;i++){
-                    slow=curr;
+                for(int i = 1 ; i<pos;i++){
                     curr=curr->next;
                 }
-                slow->next=curr->next;
-                curr->next->prev=slow;
+                curr->prev->next = curr->next;
+                curr->next->prev = curr->prev;
+                delete curr;
             }            
-            delete curr;
             length--;
         }
 
     }
 
     void display(){
+        if(head==NULL){
+            cout<<"List is empty nothing to display.."<<endl;
+            return;
+        }
         Node* temp=head;
-        while(temp->next!=head){
+        do{
             cout<<temp->data<<" ";
             temp=temp->next;
-        }
-        cout<<temp->data;
+        }while(temp!=head);
         cout<<endl;
     }
     friend class Node;
